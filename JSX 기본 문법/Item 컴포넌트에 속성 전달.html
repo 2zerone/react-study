@@ -9,20 +9,23 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        // Item 컴포넌트를 만들어 사용
         class App extends React.Component {
             render() {
                 return <ul>
-                    <Item />
-                    <Item />
-                    <Item />
+                    <Item value='Item 컴포넌트 1번'/>
+                    <Item value='Item 컴포넌트 2번'/>
+                    <Item value='Item 컴포넌트 3번'/>
                 </ul>
             }
         }
 
         class Item extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+
             render() {
-                return <li>Item 컴포넌트</li>
+                return <li>{this.props.value}</li>
             }
         }
 
