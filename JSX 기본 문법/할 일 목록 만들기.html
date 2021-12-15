@@ -61,7 +61,41 @@
                 </div>
         }
 
-        // 각각 이벤트 연결 (바인딩 포함)
+        textChange = (e) => {
+            this.setState({
+                currentValue: e.target.value
+            })
+        }
+
+        // 입력 양식에서 ENTER 키를 입력했을 때도 버튼을 클릭한 것과 같은 효과로 만듦
+        textKeyDown = (e) => {
+            const ENTER = 13
+            if (e.keyCode === ENTER) {
+                this.buttonClick()
+            }
+        }
+
+        buttonClick = (e) => {
+            if(this.state.currentValue.trim() !== '') {
+                this.setState({
+                    todos:[...this.state.todos, {
+                        key: this.state.keyCount.toString(),
+                        isDone: false,
+                        text: this.state.currentValue
+                    }]
+                })
+                this.state.keyCount += 1
+                this.state.currentValue = ''
+            }
+        }
+
+        removeItem(key) {
+            this.setState({
+                todos: this.state.todos.filter((todo) => {
+                    return todo.key !== key
+                })
+            })
+        }
 
         const container = document.getElementById('root')
         ReactDOM.render(<App />, container)
