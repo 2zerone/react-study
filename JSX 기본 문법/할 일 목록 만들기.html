@@ -97,6 +97,25 @@
             })
         }
 
+        changeCheckData(key, changed) {
+            let target = [...this.state.todos] // 배열을 전개 연산자로 복사
+            target.filter((todo) => todo.key === key)[0].isDone = changed // 변경된 요소 찾고, isDone 속성 변경
+            this.setState({
+                todos: target
+                })
+            }
+        }
+
+        class TodoItem extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    isDone: props.isDone
+                }
+            }
+
+
+
         const container = document.getElementById('root')
         ReactDOM.render(<App />, container)
     </script>
