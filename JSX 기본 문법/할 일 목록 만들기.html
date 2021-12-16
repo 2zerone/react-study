@@ -112,9 +112,38 @@
                 this.state = {
                     isDone: props.isDone
                 }
+                this.checkboxClick = this.checkboxClick.bind(this) // 다른 방법의 바인딩
+            }
+        
+            render() {
+                const textStyle = {}
+                textStyle.textDecoration = this.state.isDone ? 'line-through' : ''
+                return (
+                    <div style = {textStyle}>
+                        <input
+                            type = 'checkbox'
+                            checked = {this.state.isDone}
+                            onChange = {this.checkboxClick} />
+
+                        <div>{this.props.text}</div>
+                        <button onClick={() => this.props.removeItem(this.props.dataKey)}>제거하기</button>
+                    </div>
+                )
             }
 
+            checkboxClick() {
+                const changed = !this.state.isDone
+                this.props.changeCheckData(this.props.dataKey, changed)
+            }
 
+            componentDidUpdate(prevProps) {
+                if(prevProps.isDone !== this.props.isDone) {
+                    this.setState({
+                        isDone: this.props.isDone
+                    })
+                }
+            }
+        }
 
         const container = document.getElementById('root')
         ReactDOM.render(<App />, container)
